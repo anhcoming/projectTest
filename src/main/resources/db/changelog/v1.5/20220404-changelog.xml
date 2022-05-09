@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="1649044537749-430"
+               author="chaunm16 (generated)">
+        <createTable tableName="labor_safety_certificate">
+            <column name="certificate_id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_labor_safety_certificate"/>
+            </column>
+            <column name="del_flag"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_code"
+                    type="VARCHAR(255)"/>
+            <column name="employee_name"
+                    type="VARCHAR(255)"/>
+            <column name="employee_email"
+                    type="VARCHAR(255)"/>
+            <column name="employee_phone_number"
+                    type="VARCHAR(255)"/>
+            <column name="employee_gender"
+                    type="VARCHAR(255)"/>
+            <column name="position_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_code"
+                    type="VARCHAR(255)"/>
+            <column name="position_name"
+                    type="VARCHAR(255)"/>
+            <column name="employee_type"
+                    type="VARCHAR(255)"/>
+            <column name="unit_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_code"
+                    type="VARCHAR(255)"/>
+            <column name="unit_name"
+                    type="VARCHAR(255)"/>
+            <column name="department_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_code"
+                    type="VARCHAR(255)"/>
+            <column name="department_name"
+                    type="VARCHAR(255)"/>
+            <column name="group_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_code"
+                    type="VARCHAR(255)"/>
+            <column name="group_name"
+                    type="VARCHAR(255)"/>
+            <column name="issue_date"
+                    type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date"
+                    type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url"
+                    type="VARCHAR(255)"/>
+            <column name="training_session_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649044537749-434"
+               author="chaunm16 (generated)">
+        <createTable tableName="training_session">
+            <column name="training_session_id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_training_session"/>
+            </column>
+            <column name="del_flag"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date"
+                    type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date"
+                    type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="training_location"
+                    type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649044537749-444"
+               author="chaunm16 (generated)">
+        <createIndex indexName="EXPIRY_DATE_IDX"
+                     tableName="labor_safety_certificate">
+            <column name="expiry_date"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1649044537749-445"
+               author="chaunm16 (generated)">
+        <createIndex indexName="FROM_TRAINING_DATE_IDX"
+                     tableName="training_session">
+            <column name="from_date"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1649044537749-446"
+               author="chaunm16 (generated)">
+        <createIndex indexName="ORGANIZATION_IDX"
+                     tableName="labor_safety_certificate">
+            <column name="unit_id"/>
+            <column name="department_id"/>
+            <column name="group_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1649044537749-447"
+               author="chaunm16 (generated)">
+        <createIndex indexName="TRAINING_SESSION_IDX"
+                     tableName="labor_safety_certificate">
+            <column name="training_session_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1649044982504-422"
+               author="chaunm16 (generated)">
+        <createSequence incrementBy="1" cacheSize="100"
+                        sequenceName="labor_safety_certificate_seq"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="1649044982504-423"
+               author="chaunm16 (generated)">
+        <createSequence incrementBy="1" cacheSize="50"
+                        sequenceName="training_session_seq"
+                        startValue="1"/>
+    </changeSet>
+
+</databaseChangeLog>

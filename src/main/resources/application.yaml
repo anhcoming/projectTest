@@ -1,0 +1,34 @@
+#application.yml
+#spring:
+#  profiles:
+#    active: @activatedProperties@
+
+---
+spring:
+    profiles:
+        group:
+            dev: common, dev
+
+---
+spring:
+    profiles:
+        group:
+            prod: common, prod
+
+---
+spring:
+    profiles:
+        group:
+            prod-real: common, prod-real
+
+---
+spring:
+    profiles:
+        group:
+            real-local: common, real-local
+
+---
+spring:
+    profiles:
+        group:
+            staging: common, staging

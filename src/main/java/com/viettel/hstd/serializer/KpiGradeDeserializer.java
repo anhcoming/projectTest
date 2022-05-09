@@ -1,0 +1,28 @@
+package com.viettel.hstd.serializer;
+
+import java.io.IOException;
+        import java.time.format.DateTimeFormatter;
+
+        import com.fasterxml.jackson.core.JsonParser;
+        import com.fasterxml.jackson.core.ObjectCodec;
+        import com.fasterxml.jackson.core.TreeNode;
+        import com.fasterxml.jackson.databind.DeserializationContext;
+        import com.fasterxml.jackson.databind.JsonDeserializer;
+        import com.fasterxml.jackson.databind.JsonNode;
+        import com.fasterxml.jackson.databind.node.IntNode;
+        import com.fasterxml.jackson.databind.node.TextNode;
+        import com.viettel.hstd.constant.KpiGrade;
+        import com.viettel.hstd.core.constant.FormatConstant;
+
+public class KpiGradeDeserializer extends JsonDeserializer<KpiGrade> {
+
+    @Override
+    public KpiGrade deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException {
+        ObjectCodec oc = jp.getCodec();
+        TextNode node = oc.readTree(jp);
+        String enumString = node.textValue();
+
+        return KpiGrade.of(enumString);
+    }
+}

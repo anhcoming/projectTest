@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="1622714317000-1" author="anhcn">
+        <addColumn tableName="CV">
+            <column name="PERSONAL_ID_NUMBER" beforeColumn="IS_ACTIVE" type="nvarchar2(50)"/>
+        </addColumn>
+        <addColumn tableName="CV">
+            <column name="PERMANENCE_ADDRESS" type="nvarchar2(255)" beforeColumn="IS_ACTIVE"/>
+        </addColumn>
+        <addColumn tableName="CV">
+            <column name="SUMMARY_WORKING_EXPERIENCE" type="nvarchar2(511)" beforeColumn="IS_ACTIVE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1622776391928-1" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="leader" type="VARCHAR(255)"/>
+        </addColumn>
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="ADDRESS_CODE" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="POSITION_ID" type="NUMBER"/>
+        </addColumn>
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="POSITION_CODE" type="VARCHAR(255)"/>
+        </addColumn>
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="POSITION_NAME" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1622787829220-3" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="IS_WORK" type="BOOLEAN" remarks="0: Không nhận việc, 1: Nhận việc, 2: Chưa quyết định"
+                    defaultValueNumeric="2" defaultOnNull="true"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1622787829220-2" author="luanlt">
+        <createTable tableName="FILE_ATTACHMENT">
+            <column name="FILE_ATTACHMENT_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FILE_ATTACHMENT"/>
+            </column>
+            <column name="DEL_FLAG" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_TYPE" type="INT"/>
+            <column name="FILE_ITEM_ID" type="BIGINT"/>
+            <column name="FILE_NAME" type="VARCHAR(255)"/>
+            <column name="FILE_PATH" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1622797692702-1" author="luanlt">
+        <createTable tableName="RECRUIT_PROFILE_ATTACHMENT">
+            <column name="REC_PROFILE_ATTACHMENT_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_RECRUIT_PROFILE_ATTACHMENT"/>
+            </column>
+            <column name="DEL_FLAG" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_ID" type="BIGINT"/>
+            <column name="FILE_NAME" type="VARCHAR(255)"/>
+            <column name="FILE_PATH" type="VARCHAR(255)"/>
+            <column name="CV_ID" type="BIGINT"/>
+            <column name="DOCUMENT_TYPE_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1622798508841-1" author="luanlt">
+        <addColumn tableName="CV">
+            <column name="contract_type" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1622798769399-1" author="luanlt">
+        <dropColumn tableName="CV" columnName="CONTRACT_TYPE"/>
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="contract_type" type="INT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1622793307383-1" author="anhcn">
+        <addColumn tableName="RECRUIT_PROFILE">
+            <column name="EMPLOYEE_VHR_TEMP" type="number(19)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1622793852384-1" author="anhcn">
+        <createSequence sequenceName="EMPLOYEE_VHR_TEMP_SEQ" minValue="1" cacheSize="50" incrementBy="1"/>
+    </changeSet>
+
+<!--    <changeSet id="1622794390971-1" author="anhcn">-->
+<!--        <addColumn tableName="EMPLOYEE_VHR_TEMP">-->
+<!--            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER(1, 0)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER(19, 0)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER(19, 0)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </addColumn>-->
+<!--    </changeSet>-->
+    <changeSet id="1623041489018-1" author="anhcn">
+        <sqlFile path="db/changelog/v1.1/Add Email and PhoneNumber Unique Constraint.sql"/>
+    </changeSet>
+
+    <changeSet id="1623142083879-1" author="anhcn">
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="LEADER_ID" type="NVARCHAR2(15)"/>
+        </addColumn>
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="LEADER_NAME" type="NVARCHAR2(100)"/>
+        </addColumn>
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="LEADER_EMAIL" type="NVARCHAR(50)"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="1623127257037-1" author="David">
+        <createTable tableName="EMPLOYEE_PROFILE">
+            <column name="EMPLOYEE_PROFILE_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMPLOYEE_PROFILE"/>
+            </column>
+            <column name="DEL_FLAG" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERVIEW_SESSION_CV_ID" type="BIGINT"/>
+            <column name="FULL_NAME" type="VARCHAR(255)"/>
+            <column name="GENDER" type="BOOLEAN"/>
+            <column name="USER_BIRTHDAY" type="DATE"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="PHONE_NUMBER" type="VARCHAR(255)"/>
+            <column name="ADDRESS" type="VARCHAR(255)"/>
+            <column name="RESULT_EMAIL_SEND_DATE" type="DATE"/>
+            <column name="ACCOUNT_ID" type="BIGINT"/>
+            <column name="IDENTITY" type="VARCHAR(255)"/>
+            <column name="PERSONAL_ID_ISSUED_DATE" type="DATE"/>
+            <column name="PERSONAL_ID_ISSUED_PLACE" type="VARCHAR(255)"/>
+            <column name="RELIGION" type="VARCHAR(255)"/>
+            <column name="ETHNIC" type="VARCHAR(255)"/>
+            <column name="DEPARTMENT" type="VARCHAR(255)"/>
+            <column name="APPLY_POSITION" type="VARCHAR(255)"/>
+            <column name="POSITION_CODE" type="VARCHAR(255)"/>
+            <column name="POSITION_ID" type="BIGINT"/>
+            <column name="ORIGIN" type="VARCHAR(255)"/>
+            <column name="PERMANENT_ADDRESS" type="VARCHAR(255)"/>
+            <column name="CURRENT_ADDRESS" type="VARCHAR(255)"/>
+            <column name="SOCIAL_INSURANCE" type="VARCHAR(255)"/>
+            <column name="TAX_NUMBER" type="VARCHAR(255)"/>
+            <column name="DATE_OF_EMPLOYMENT" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1623399347910-1" author="luanlt">
+        <createTable tableName="EMPLOYEE_VHR_TEMP">
+            <column name="EMPLOYEE_VHR_TEMP_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMPLOYEE_VHR_TEMP"/>
+            </column>
+            <column name="DEL_FLAG" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP(6)" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="TIMESTAMP(6)" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORGANIZATION_CODE" type="VARCHAR(255)"/>
+            <column name="EMPLOYEE_ID" type="VARCHAR(255)"/>
+            <column name="EMPLOYEE_CODE" type="VARCHAR(255)"/>
+            <column name="FULLNAME" type="VARCHAR(255)"/>
+            <column name="USER_BIRTHDAY" type="DATE"/>
+            <column name="GENDER" type="BOOLEAN"/>
+            <column name="PERMANENT_ADDRESS" type="VARCHAR(500)"/>
+            <column name="CURRENT_ADDRESS" type="VARCHAR(500)"/>
+            <column name="MOBILE_NUMBER" type="VARCHAR(15)"/>
+            <column name="EMAIL" type="VARCHAR(50)"/>
+            <column name="TRAINING_SPECIALITY" type="VARCHAR(255)"/>
+            <column name="PARTY_ADMISSION_DATE" type="DATE"/>
+            <column name="PARTY_ADMISSION_PLACE" type="VARCHAR(255)"/>
+            <column name="PERSONAL_ID_NUMBER" type="VARCHAR(255)"/>
+            <column name="PERSONAL_ID_ISSUED_DATE" type="DATE"/>
+            <column name="PERSONAL_ID_ISSUED_PLACE" type="VARCHAR(255)"/>
+            <column name="JOIN_COMPANY_DATE" type="DATE"/>
+            <column name="POSITION_ID" type="BIGINT"/>
+            <column name="ORGANIZATION_ID" type="VARCHAR(255)"/>
+            <column name="POSITION_NAME" type="VARCHAR(255)"/>
+            <column name="ORGANIZATION_NAME" type="VARCHAR(255)"/>
+            <column name="PARTY_OFFICIAL_ADMISSION_DATE" type="DATE"/>
+            <column name="SIGNED_DATE" type="DATE"/>
+            <column name="CONTRACT_DECISION_NUMBER" type="VARCHAR(255)"/>
+            <column name="EDUCATION_SUBJECT_NAME" type="VARCHAR(255)"/>
+            <column name="LABOUR_CONTRACT_TYPE_ID" type="INT"/>
+            <column name="RELIGION_ID" type="VARCHAR(255)"/>
+            <column name="ETHNIC_ID" type="VARCHAR(255)"/>
+            <column name="CONTRACT_TYPE" type="INT"/>
+            <column name="FILE_NAME" type="VARCHAR(255)"/>
+            <column name="FILE_PATH" type="VARCHAR(255)"/>
+            <column name="RESULT_EMAIL_SEND_DATE" type="DATE"/>
+            <column name="INTERVIEW_DATE" type="DATE"/>
+            <column name="INTERVIEW_SESSION_CV_ID" type="BIGINT"/>
+            <column name="ACCOUNT_ID" type="BIGINT"/>
+            <column name="CURRENT_PROVINCE_ID" type="INT"/>
+            <column name="CURRENT_DISTRICT_ID" type="INT"/>
+            <column name="CURRENT_WARD_ID" type="INT"/>
+            <column name="ORIGIN_PROVINCE_ID" type="INT"/>
+            <column name="ORIGIN_DISTRICT_ID" type="INT"/>
+            <column name="ORIGIN_WARD_ID" type="INT"/>
+            <column name="EDUCATION_NAME" type="VARCHAR(255)"/>
+            <column name="GRAND_FATHER_NAME" type="VARCHAR(255)"/>
+            <column name="GRAND_FATHER_BIRTH" type="INT"/>
+            <column name="GRAND_FATHER_CAREER" type="VARCHAR(255)"/>
+            <column name="GRAND_MOTHER_NAME" type="VARCHAR(255)"/>
+            <column name="GRAND_MOTHER_BIRTH" type="INT"/>
+            <column name="GRAND_MOTHER_CAREER" type="VARCHAR(255)"/>
+            <column name="GRAND_PARENT_ADDRESS" type="VARCHAR(255)"/>
+            <column name="GRAND_PARENT_WORK_PLACE" type="VARCHAR(255)"/>
+            <column name="GRAND_PARENT_DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="FATHER_NAME" type="VARCHAR(255)"/>
+            <column name="FATHER_BIRTH" type="INT"/>
+            <column name="FATHER_CAREER" type="VARCHAR(255)"/>
+            <column name="FATHER_ADDRESS" type="VARCHAR(255)"/>
+            <column name="FATHER_WORK_PLACE" type="VARCHAR(255)"/>
+            <column name="FATHER_DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="FATHER_FAMILY" type="VARCHAR(1000)"/>
+            <column name="MOTHER_NAME" type="VARCHAR(255)"/>
+            <column name="MOTHER_BIRTH" type="INT"/>
+            <column name="MOTHER_CAREER" type="VARCHAR(255)"/>
+            <column name="MOTHER_ADDRESS" type="VARCHAR(255)"/>
+            <column name="MOTHER_WORK_PLACE" type="VARCHAR(255)"/>
+            <column name="MOTHER_DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="MOTHER_FAMILY" type="VARCHAR(1000)"/>
+            <column name="MATERNAL_GRAND_FATHER" type="VARCHAR(255)"/>
+            <column name="MATERNAL_GRAND_FATHER_BIRTH" type="INT"/>
+            <column name="MATERNAL_GRAND_FATHER_CAREER" type="VARCHAR(255)"/>
+            <column name="MATERNAL_GRAND_MOTHER" type="VARCHAR(255)"/>
+            <column name="MATERNAL_GRAND_MOTHER_BIRTH" type="INT"/>
+            <column name="MATERNAL_GRAND_MOTHER_CAREER" type="VARCHAR(255)"/>
+            <column name="MATERNAL_GRAND_ADDRESS" type="VARCHAR(500)"/>
+            <column name="MATERNAL_GRAND_WORK_PLACE" type="VARCHAR(255)"/>
+            <column name="MATERNAL_GRAND_DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="FAMILY" type="VARCHAR(1000)"/>
+            <column name="WIFE_AND_CHILDREN" type="VARCHAR(1000)"/>
+            <column name="FOREIGN_FAMILY" type="VARCHAR(255)"/>
+            <column name="WORK_PROCESS" type="VARCHAR(1000)"/>
+            <column name="CONFIRMATION_LOCAL" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1623661119301-1" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION">
+            <column name="DOMAIN_DATA_ID" type="bigint"/>
+            <column name="DATA_NAME" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1623723249452-1" author="anhcn">
+        <createSequence sequenceName="SIGNATURE_SEQ" incrementBy="1" minValue="1" cacheSize="50"/>
+    </changeSet>
+
+    <changeSet id="1623722991535-1" author="ancn">
+        <createTable tableName="SIGNATURE">
+            <column name="SIGNATURE_ID" type="BIGINT"
+                    defaultValueComputed="&quot;SIGNATURE_SEQ&quot;.&quot;NEXTVAL&quot;">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SIGNATURE"/>
+            </column>
+            <column name="DEL_FLAG" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="TIMESTAMP(6)" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="TIMESTAMP(6)" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_ID" type="NUMBER(19)"/>
+            <column name="EMPLOYEE_ID" type="NUMBER(19)"/>
+            <column name="EMPLOYEE_CODE" type="VARCHAR(50)"/>
+            <column name="FILE_PATH" type="VARCHAR(255)"/>
+            <column name="FILE_NAME" type="NVARCHAR2(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1623984199063-1" author="anhcn">
+        <createSequence sequenceName="CONTRACT_SEQ" startValue="1" incrementBy="1" minValue="1" cacheSize="50"/>
+    </changeSet>
+
+    <changeSet author="anhcn" id="1623983692014-28">
+        <createTable tableName="CONTRACT">
+            <column defaultValueComputed="&quot;CONTRACT_SEQ&quot;.&quot;NEXTVAL&quot;" name="CONTRACT_ID" type="NUMBER(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTRACT_TYPE" type="NUMBER(10, 0)"/>
+            <column name="CONTRACT_NUMBER" type="NVARCHAR2(50)"/>
+            <column name="SIGNED_PLACE" type="NVARCHAR2(50)"/>
+            <column name="EFFECTIVE_DATE" type="date"/>
+            <column name="EXPIRED_DATE" type="date"/>
+            <column name="SIGNED_DATE" type="date"/>
+            <column name="ACCOUNT_ID" type="NUMBER(10, 0)"/>
+            <column name="ACCOUNT_CODE" type="NUMBER(10, 0)"/>
+            <column name="ACCOUNT_NAME" type="NUMBER(10, 0)"/>
+            <column name="EMPLOYEE_ID" type="NUMBER(10, 0)"/>
+            <column name="EMPLOYEE_CODE" type="NVARCHAR2(50)"/>
+            <column name="EMPLOYEE_NAME" type="NVARCHAR2(100)"/>
+            <column name="NATIONALITY" type="NVARCHAR2(255)"/>
+            <column name="BIRTH_DATE" type="date"/>
+            <column name="PLACE_OF_BIRTH" type="NVARCHAR2(15)"/>
+            <column name="GENDER" type="NUMBER(1, 0)"/>
+            <column name="TRAINING_LEVEL" type="NVARCHAR2(50)"/>
+            <column name="TRAINING_SPECIALITY" type="NVARCHAR2(50)"/>
+            <column name="PERSONAL_ID_NUMBER" type="NVARCHAR2(50)"/>
+            <column name="PERSONAL_ID_ISSUED_DATE" type="NVARCHAR2(50)"/>
+            <column name="PERSONAL_ID_ISSUED_PLACE" type="NVARCHAR2(200)"/>
+            <column name="PERMANENT_ADDRESS" type="NVARCHAR2(500)"/>
+            <column name="MOBILE_NUMBER" type="NVARCHAR2(15)"/>
+            <column name="POSITION_ID" type="NUMBER(10, 0)"/>
+            <column name="POSITION_CODE" type="NVARCHAR2(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_NAME" type="NVARCHAR2(200)"/>
+            <column name="ACCOUNTNUMBER" type="NVARCHAR2(50)"/>
+            <column name="BANK" type="NVARCHAR2(255)"/>
+            <column name="BASIC_SALARY" type="NVARCHAR2(50)"/>
+            <column name="PAY_RATE" remarks="Hệ số lương" type="NVARCHAR2(50)"/>
+            <column name="PAY_GRADE" remarks="Ngạch lương" type="NVARCHAR2(50)"/>
+            <column name="PAY_RANGE" remarks="Bậc lương" type="NVARCHAR2(50)"/>
+            <column name="LABOR_NOTE_NUMBER" type="NVARCHAR2(50)"/>
+            <column name="CONTRACT_LENGTH" type="NUMBER(10, 0)"/>
+            <column name="NEGOTIATE_SALARY" type="NUMBER(10, 0)"/>
+            <column name="TAX_NUMBER" type="NVARCHAR2(50)"/>
+            <column name="CURRENT_ADDRESS" type="NVARCHAR2(500)"/>
+            <column name="VIETTEL_PAY_NAME" type="NVARCHAR2(100)"/>
+            <column name="VIETTEL_PAY_NUMBER" type="NVARCHAR2(50)"/>
+            <column name="VIETTEL_BRANCH_NAME" type="NVARCHAR2(100)"/>
+            <column name="VIETTEL_BRANCH_ADDRESS" type="NVARCHAR2(100)"/>
+            <column name="VIETTEL_BRANCH_EMAIL" type="NVARCHAR2(50)"/>
+            <column name="COMPANY_NAME" type="NVARCHAR2(100)"/>
+            <column name="COMPANY_ADDRESS" type="NVARCHAR2(255)"/>
+            <column name="REPRESENTATIVE" type="NVARCHAR2(255)"/>
+            <column name="INSURANCE_AMOUNT" type="NUMBER(10, 0)"/>
+            <column name="INSURANCE_AMOUNT_STRING" type="NVARCHAR2(100)"/>
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1624001269378-3" author="anhcn">
+        <createSequence sequenceName="ETHNIC_SEQ" startValue="1" incrementBy="1" minValue="1" cacheSize="50"/>
+    </changeSet>
+
+    <changeSet id="1624001111857-1" author="anhcn">
+        <createTable tableName="ETHNIC">
+            <column defaultValueComputed="&quot;ETHNIC_SEQ&quot;.&quot;NEXTVAL&quot;" name="ETHNIC_ID" type="NUMBER(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CODE" type="NVARCHAR2(50)"/>
+            <column name="NAME" type="NVARCHAR2(100)"/>
+            <column name="DESCRIPTION" type="NVARCHAR2(511)"/>
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1624003848224-1" author="anhcn">
+        <sqlFile path="db/changelog/v1.1/ETHNIC.sql"/>
+    </changeSet>
+
+    <changeSet id="1624001269378-1" author="anhcn">
+        <createSequence sequenceName="RELIGION_SEQ" startValue="1" incrementBy="1" minValue="1" cacheSize="50"/>
+    </changeSet>
+
+    <changeSet id="1624001111857-2" author="anhcn">
+        <createTable tableName="RELIGION">
+            <column defaultValueComputed="&quot;RELIGION_SEQ&quot;.&quot;NEXTVAL&quot;" name="RELIGION_ID" type="NUMBER(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CODE" type="NVARCHAR2(50)"/>
+            <column name="NAME" type="NVARCHAR2(100)"/>
+            <column name="DESCRIPTION" type="NVARCHAR2(511)"/>
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1624005084587-1" author="anhcn">
+        <sqlFile path="db/changelog/v1.1/RELIGION.sql"/>
+    </changeSet>
+
+
+<!--    <changeSet id="1623723427370-1" author="luanlt">-->
+<!--        <addColumn tableName="EMPLOYEE_VHR_TEMP">-->
+<!--            <column name="NOTIFY_SEND_DATE" type="Date"/>-->
+<!--            <column name="STATUS" type="integer"/>-->
+<!--            <column name="IS_LOCK" type="boolean"/>-->
+<!--        </addColumn>-->
+<!--        <addColumn tableName="SYS_LOG">-->
+<!--            <column name="DATA" type="clob"></column>-->
+<!--        </addColumn>-->
+<!--    </changeSet>-->
+<!--    <changeSet id="1623741115281-1" author="luanlt">-->
+<!--        <addColumn tableName="RECRUIT_PROFILE_ATTACHMENT">-->
+<!--            <column name="STATUS" type="INT"/>-->
+<!--            <column name="REASON" type="nvarchar2(255)"/>-->
+<!--        </addColumn>-->
+<!--    </changeSet>-->
+
+    <changeSet id="1623829061365-1" author="David">
+        <!--        <dropColumn tableName="EMPLOYEE_VHR_TEMP" columnName="GRAND_PARENT_WORK_PLACE"/>-->
+        <!--        <dropColumn tableName="EMPLOYEE_VHR_TEMP" columnName="MATERNAL_GRAND_WORK_PLACE"/>-->
+        <!--        <addColumn tableName="EMPLOYEE_VHR_TEMP">-->
+        <!--            <column name="GRAND_MOTHER_WORK_PLACE" type="VARCHAR(255)"/>-->
+        <!--            <column name="TAX_NUMBER" type="NVARCHAR2(50)"/>-->
+        <!--            <column name="TRAINING_LEVEL" type="Bigint"/>-->
+        <!--            <column name="INSURANCE_NUMBER" type="NVARCHAR2(255)"/>-->
+        <!--            <column name="BIRTH_PLACE" type="NVARCHAR2(255)"/>-->
+        <!--            <column name="UNION_ADMISSION_DATE" type="Date"/>-->
+        <!--            <column name="MATERNAL_FATHER_WORK_PLACE" type="NVARCHAR2(255)"/>-->
+        <!--            <column name="MATERNAL_MOTHER_WORK_PLACE" type="NVARCHAR2(255)"/>-->
+        <!--            <column name="GRAND_FATHER_WORK_PLACE" type="NVARCHAR2(255)"/>-->
+        <!--        </addColumn>-->
+    </changeSet>
+    <changeSet id="1623923114990-1" author="David">
+        <addColumn tableName="EMPLOYEE_VHR_TEMP">
+            <column name="ORIGIN" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1623982466616-1" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="IS_CALL_VOFFICE" type="BOOLEAN"/>
+            <column name="SIGNED_FILE" type="nvarchar2(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1623984889183-1" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="trans_code" type="nvarchar2(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1624415058420-1" author="luanlt">
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="INTERVIEW_REPORT_FILE" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+<!--    <changeSet id="1624937826746-1" author="luanlt">-->
+<!--        <addColumn tableName="CONTRACT">-->
+<!--            <column name="CONTRACT_FILE" type="VARCHAR(255)"/>-->
+<!--            <column name="VIETTEL_BRANCH_PHONE_NUMBER" type="VARCHAR(50)"/>-->
+<!--            <column name="IS_CALL_VOFFICE" type="boolean"/>-->
+<!--            <column name="SIGNED_FILE" type="VARCHAR(50)"/>-->
+<!--            <column name="TRANS_CODE" type="VARCHAR(50)"/>-->
+<!--        </addColumn>-->
+<!--    </changeSet>-->
+    <!--    <changeSet id="1623723427370-1" author="luanlt">-->
+    <!--        <addColumn tableName="EMPLOYEE_VHR_TEMP">-->
+    <!--            <column name="NOTIFY_SEND_DATE" type="Date"/>-->
+    <!--            <column name="STATUS" type="integer"/>-->
+    <!--            <column name="IS_LOCK" type="boolean"/>-->
+    <!--        </addColumn>-->
+    <!--        <addColumn tableName="SYS_LOG">-->
+    <!--            <column name="DATA" type="clob"></column>-->
+    <!--        </addColumn>-->
+    <!--    </changeSet>-->
+    <!--    <changeSet id="1623741115281-1" author="luanlt">-->
+    <!--        <addColumn tableName="RECRUIT_PROFILE_ATTACHMENT">-->
+    <!--            <column name="STATUS" type="INT"/>-->
+    <!--            <column name="REASON" type="nvarchar2(255)"/>-->
+    <!--        </addColumn>-->
+    <!--    </changeSet>-->
+
+    <!--    <changeSet id="1623210240036-1" author="David">-->
+    <!--        <addColumn tableName="INTERVIEW_SESSION_CV">-->
+    <!--            <column name="SUM_POINT" type="float"/>-->
+    <!--        </addColumn>-->
+
+    <!--        <addColumn tableName="INTERVIEW_SESSION_CV">-->
+    <!--            <column name="MAX_POINT" type="float"/>-->
+    <!--        </addColumn>-->
+
+</databaseChangeLog>

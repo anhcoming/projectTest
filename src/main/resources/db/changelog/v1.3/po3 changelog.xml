@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+
+    <changeSet id="create insurance sequence" author="anhcn">
+        <createSequence sequenceName="INSURANCE_SESSION_SEQ" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
+
+
+    <changeSet id="create insurance session" author="anhcn">
+        <createTable tableName="INSURANCE_SESSION">
+            <column defaultValueComputed="&quot;INSURANCE_SESSION_SEQ&quot;.&quot;NEXTVAL&quot;" name="INSURANCE_SESSION_ID" type="NUMBER(19, 0)"
+                    remarks="Id của đợt tái ký">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="SESSION_NAME" type="nvarchar2(255)" remarks="Tên của đợt chốt sổ">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="DONE_ADDING_CONTRACT_TIMESTAMP" type="TIMESTAMP(6)"
+                    remarks="Thời điểm hoàn thành việc thêm các hợp đồng vào đợt chốt sổ"/>
+            <column name="DONE_DECREASING_AND_PREPARE_DOCUMENT_TIMESTAMP" type="TIMESTAMP(6)"
+                    remarks="Thời điểm hoàn thành việc báo giảm/chuẩn bị hồ sơ"/>
+            <column name="DONE_SENDING_TO_BHXH_TIMESTAMP" type="TIMESTAMP(6)"
+                    remarks="Thời điểm hoàn thành việc gửi lên BHXH"/>
+            <column name="FINISH_INSURANCE_PROCEDURE_TIMESTAMP" type="TIMESTAMP(6)"
+                    remarks="Thời điểm hoàn thành việc chốt sổ"/>
+
+            <column name="INSURANCE_STATUS" type="number(1)" remarks="Trạng thái chốt sổ -1: Chưa ở trong quy trình chốt sổ 0: Vừa add vào quy trình chốt sổ 1: Đang ở trong giai đoạn Báo giảm/Chuẩn bị hồ sơ 2: Báo giảm/Chuẩn bị hồ sơ thất bại 3: Báo giảm/Chuẩn bị hồ sơ thành công 4: Đang ở trong giai đoạn gửi BHXH 5: Gửi BHXH trả về thất bại 6: Gửi BHXH trả về thành công"
+                    defaultValueNumeric="-1">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="create insurance terminate sequence" author="anhcn">
+        <createSequence sequenceName="INSURANCE_SESSION_TERMINATE_CONTRACT_SEQ" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
+
+    <changeSet id="create insurance session terminate contract" author="anhcn">
+        <createTable tableName="INSURANCE_SESSION_TERMINATE_CONTRACT">
+            <column defaultValueComputed="&quot;INSURANCE_SESSION_TERMINATE_CONTRACT_SEQ&quot;.&quot;NEXTVAL&quot;" name="INSURANCE_SESSION_TERMINATE_CONTRACT_ID" type="NUMBER(19, 0)"
+                    remarks="Id của bảng kết nối đợt chốt sổ và đơn nghỉ việc">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="INSURANCE_SESSION_ID" type="NUMBER(19)" remarks="Id của đợt chốt sổ">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="TERMINATE_CONTRACT_ID" type="NUMBER(19)" remarks="Id của đơn xin nghỉ việc">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="INSURANCE_STATUS" type="number(1)" remarks="Trạng thái chốt sổ -1: Chưa ở trong quy trình chốt sổ 0: Vừa add vào quy trình chốt sổ 1: Đang ở trong giai đoạn Báo giảm/Chuẩn bị hồ sơ 2: Báo giảm/Chuẩn bị hồ sơ thất bại 3: Báo giảm/Chuẩn bị hồ sơ thành công 4: Đang ở trong giai đoạn gửi BHXH 5: Gửi BHXH trả về thất bại 6: Gửi BHXH trả về thành công"
+                    defaultValueNumeric="-1">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="DECREASE_STATUS" type="number(1)" remarks="Các trạng thái của quy trình Báo giảm: -1: Không ở trong quy trình báo giảm 0: Bắt đầu quy trình báo giảm 1: Quy trình báo giảm thất bại 2: Quy trình báo giảm thành công"
+                    defaultValueNumeric="-1">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="PREPARE_DOCUMENT_STATUS" type="number(1)" remarks="Các trạng thái quy trình Chuẩn bị hồ sơ: -1: Không ở trong quy trình Chuẩn bị hồ sơ 0: Bắt đầu quy trình báo giảm 1: Hoàn thành Quy trình báo giảm thành công"
+                    defaultValueNumeric="-1">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="INSURANCE_SESSION_TERMINATE_CONTRACT"
+                                 baseColumnNames="INSURANCE_SESSION_ID" referencedTableName="INSURANCE_SESSION"
+                                 referencedColumnNames="INSURANCE_SESSION_ID" constraintName="FK_INSURANCE_SESSION"/>
+        <addForeignKeyConstraint baseTableName="INSURANCE_SESSION_TERMINATE_CONTRACT"
+                                 baseColumnNames="TERMINATE_CONTRACT_ID" referencedTableName="TERMINATE_CONTRACT"
+                                 referencedColumnNames="TERMINATE_CONTRACT_ID" constraintName="FK_TERMINATE_CONTRACT"/>
+
+
+    </changeSet>
+    <changeSet id="add insuranceStatus to terminate contract" author="anhcn">
+        <addColumn tableName="TERMINATE_CONTRACT">
+            <column name="INSURANCE_STATUS" type="number(2)" remarks="Thêm trạng thái chốt sổ cho đơn xin nghỉ việc"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="change transcode type to nvarchar(2000)" author="anhcn">
+        <modifyDataType tableName="RESIGN_SESSION" columnName="TRANSCODE" newDataType="nvarchar2(512)"/>
+    </changeSet>
+    <changeSet id="change signed place to nvarchar(511)" author="anhcn">
+        <modifyDataType tableName="CONTRACT" columnName="SIGNED_PLACE" newDataType="nvarchar2(511)"/>
+    </changeSet>
+    <changeSet id="change signed file to nvarchar(511)" author="anhcn">
+        <modifyDataType tableName="CONTRACT" columnName="SIGNED_FILE" newDataType="nvarchar2(511)"/>
+    </changeSet>
+
+    <changeSet id="create VO_LOG sequence" author="anhcn">
+        <createSequence sequenceName="VO_LOG_SEQ" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
+
+    <changeSet id="create VO LOG" author="anhcn">
+        <createTable tableName="VO_LOG">
+            <column defaultValueComputed="&quot;VO_LOG_SEQ&quot;.&quot;NEXTVAL&quot;" name="VO_LOG_ID" type="NUMBER(19, 0)"
+                    remarks="Id của bảng lưu log VOffice">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="REQUEST" remarks="Request FE gửi cho BE để gửi lên VO" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueNumeric="1" name="TYPE" type="NUMBER(2, 0)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+
+
+</databaseChangeLog>

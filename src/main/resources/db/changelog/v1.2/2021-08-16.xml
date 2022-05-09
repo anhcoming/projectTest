@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+
+    <changeSet id="add unique index for interview session cv in recruitee account" author="anhcn">
+        <sql>create unique index INTERVIEW_SESSION_CV_SOFT_INDEX ON RECRUITEE_ACCOUNT
+            (CASE WHEN DEL_FLAG = 0 THEN INTERVIEW_SESSION_CV_ID END )</sql>
+    </changeSet>
+    <changeSet id="add employee signed file field to contract" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="EMPLOYEE_SIGNED_FILE" type="nvarchar2(100)"
+                    remarks="Lưu đường link đến file đã điền đủ thông tin và có thêm chữ ký người dùng "/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add signature file and name field to contract" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="SIGNATURE_PATH" type="nvarchar2(100)" remarks="Chứa đường dẫn tới file chữ ký đc lưu"/>
+            <column name="SIGNATURE_NAME" type="nvarchar2(100)" remarks="Tên của file chữ ký được lưu"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="change signature path to absolute path" author="anhcn">
+        <renameColumn tableName="CONTRACT" oldColumnName="SIGNATURE_PATH" newColumnName="SIGNATURE_ABSOLUTE_PATH"/>
+    </changeSet>
+    <changeSet id="add column signature path for contract" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="SIGNATURE_PATH" type="nvarchar2(100)"
+                    remarks="Thêm trường này để phục vụ cho hàm nào ở ở Terminate Contract"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add contract file name" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="CONTRACT_FILE_ENCODE_PATH" remarks="Chứa đường dẫn đã được encode và dùng cho api download"
+                    type="nvarchar2(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add signature file encode path" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="SIGNATURE_FILE_ENCODE_PATH" type="nvarchar2(100)"
+                    remarks="Lưu đường dẫn được mã hóa của file chữ ký"/>
+            <column name="SIGNED_FILE_ENCODE_PATH" type="nvarchar2(100)"
+                    remarks="Lưu đường dẫn được đã được ký"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add employee signed file encode path" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="EMPLOYEE_SIGNED_FILE_ENCODE_PATH" remarks="Chứa đường dẫn của file người lao động ký đã được mã hóa"
+                    type="nvarchar2(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="ADD UNIQUE INDEX TO SYS CONFIG" author="anhcn">
+        <sql> create unique index SYS_CONFIG_CONFIG_KEY ON SYS_CONFIG
+            (CASE WHEN DEL_FLAG = 0 THEN CONFIG_KEY END )</sql>
+    </changeSet>
+    <changeSet id="change bm09 file name field" author="anhcn">
+        <renameColumn tableName="RESIGN_SESSION" oldColumnName="BM09_MIXED_FILE_NAME" newColumnName="BM09_ENCODE_PATH"/>
+    </changeSet>
+    <changeSet id="add start/end date, resign type, report, speciality, attitude score" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION">
+            <column name="START_DATE" type="date"
+                    remarks="Thời gian sớm nhất 1 trong các hợp đồng trong đợt tái ký hết hạn (Chủ yêu dùng cho tái ký thử việc)"/>
+            <column name="END_DATE" type="date"
+                    remarks="Thời gian muộn nhất 1 trong các hợp đồng trong đợt tái ký hết hạn (Chủ yêu dùng cho tái ký thử việc)"/>
+            <column name="RESIGN_TYPE" type="number(2)"
+                    remarks="1: Tái ký cho nhân viên, 2: Tái ký cho thử việc" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="RESIGN_SESSION_CONTRACT">
+            <column name="RESIGN_TYPE" type="number(2)"
+                    remarks="1: Tái ký cho nhân viên, 2: Tái ký cho thử việc" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REPORT_SCORE" type="number(2)"
+                    remarks="Điểm báo cáo thu hoạch thử việc (Dùng cho tái ký thử việc), từ 0-20đ" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPECIALITY_SCORE" type="number(2)"
+                    remarks="Điểm chuyên môn kỹ năng làm việc (Dùng cho tái ký thử việc), từ 0-20đ" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATTITUDE_SCORE" type="number(2)"
+                    remarks="Điểm thái độ, ý thức làm việc (Dùng cho tái ký thử việc), từ 0-10đ" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NEW_CONTRACT_ID" type="number(19)"
+                    remarks="Hợp đồng mới (có thể là hợp đồng tạm thời)" defaultValueNumeric="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add resignStatus to resignContract" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION_CONTRACT">
+            <column name="RESIGN_STATUS" type="number(2)"
+                    remarks="-1: Không ở trong đợt tái ký 0: Được thêm vào trong đợt tái ký/ HR chưa cập nhật kết quả đánh giá 1: HR đã cập nhật kết quả đánh giá/ Chưa trình ký lãnh đạo lần 1 2: Đã gửi đi trình ký/ Đang chờ kết quả trình ký lần 1 3: Nhận được kết quả trình ký lần 1 và thất bại 4: Nhận được kết quả trình ký lần 1 và thành công/ Đang chờ HR TCT thêm vào danh sách trình ký lần 1 (TGĐ). 5: HR thêm vào danh sách trình ký lên TCT. 6: HR TCT đã gửi trinh ký lên/ Đang chờ kết quả trình ký 2 7: Nhận được kết quả trình ký lần 2 (TCT) và thất bại 8: Nhận được kết quả trình ký lần 2 (TCT) và thành công/ Đợi tạo hợp đồng tạm thời 9: Đã tạo hợp đồng tạm thời/ Đợi HR cập nhật hợp đồng lao động mới 10: HR đã cập nhật hợp đồng lao động mới/ Đợi tạo file hợp đồng 11: Đã tạo file hợp đồng/ Đợi người lao động ký 12: Người lao động đã ký/ Đợi HR trình ký lần 3 13: HR đã trình ký lần 3/ Đang đợi kết quả trình ký lần 3 14: Trình ký lần 3 thất bại/ Đang đợi đơn xin nghỉ việc 15: Trình ký lần 3 thành công/ Đợi cập nhật kết quả vào hợp đồng tạm thời (Biến tạm thời thành chính thức) 16: Hợp đồng tạm thời thành chính thức/ Đợi cập nhật lên VHR 17: Gửi yêu cầu lên VHR/ Đợi kết quả cập nhật từ VHR"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add resignStatus to resignSession" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION">
+            <column name="RESIGN_STATUS" type="number(2)"
+                    remarks="-1: Không ở trong đợt tái ký 0: Được thêm vào trong đợt tái ký/ HR chưa cập nhật kết quả đánh giá 1: HR đã cập nhật kết quả đánh giá/ Chưa trình ký lãnh đạo lần 1 2: Đã gửi đi trình ký/ Đang chờ kết quả trình ký lần 1 3: Nhận được kết quả trình ký lần 1 và thất bại 4: Nhận được kết quả trình ký lần 1 và thành công/ Đang chờ HR TCT thêm vào danh sách trình ký lần 1 (TGĐ). 5: HR thêm vào danh sách trình ký lên TCT. 6: HR TCT đã gửi trinh ký lên/ Đang chờ kết quả trình ký 2 7: Nhận được kết quả trình ký lần 2 (TCT) và thất bại 8: Nhận được kết quả trình ký lần 2 (TCT) và thành công/ Đợi tạo hợp đồng tạm thời 9: Đã tạo hợp đồng tạm thời/ Đợi HR cập nhật hợp đồng lao động mới 10: HR đã cập nhật hợp đồng lao động mới/ Đợi tạo file hợp đồng 11: Đã tạo file hợp đồng/ Đợi người lao động ký 12: Người lao động đã ký/ Đợi HR trình ký lần 3 13: HR đã trình ký lần 3/ Đang đợi kết quả trình ký lần 3 14: Trình ký lần 3 thất bại/ Đang đợi đơn xin nghỉ việc 15: Trình ký lần 3 thành công/ Đợi cập nhật kết quả vào hợp đồng tạm thời (Biến tạm thời thành chính thức) 16: Hợp đồng tạm thời thành chính thức/ Đợi cập nhật lên VHR 17: Gửi yêu cầu lên VHR/ Đợi kết quả cập nhật từ VHR"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add BMTCT_FILE_PATH to resign session" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION">
+            <column name="BMTCT_FILE_PATH" type="VARCHAR(255)"
+                    remarks="Đường dẫn được mã hóa tới file trình ký lên TCT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="rename bm09 encode path" author="anhcn">
+        <renameColumn tableName="RESIGN_SESSION" oldColumnName="BMTCT_FILE_PATH" newColumnName="BMTCT_ENCODE_PATH"/>
+    </changeSet>
+    <changeSet id="Add default value to resignStatus in Resign Session" author="anhcn">
+        <addNotNullConstraint tableName="RESIGN_SESSION" columnName="RESIGN_STATUS" defaultNullValue="0"/>
+    </changeSet>
+
+    <changeSet id="Add default value to resignContract in Resign Session" author="anhcn">
+        <addNotNullConstraint tableName="RESIGN_SESSION_CONTRACT" columnName="RESIGN_STATUS" defaultNullValue="0"/>
+    </changeSet>
+    <changeSet id="add bmtct docx encode path, report encode path" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION">
+            <column name="BMTCT_DOCX_ENCODE_PATH" type="nvarchar2(100)"
+                    remarks="Lưu file biểu mẫu trình ký tổng công ty (dưới dạng docx)"/>
+            <column name="REPORT_FILE" type="nvarchar2(100)"
+                    remarks="Lưu file báo cáo Kết quả đánh giá CBNV hết hạn thử việc"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="change probationary score type from int to float" author="anhcn">
+        <modifyDataType tableName="RESIGN_SESSION_CONTRACT" columnName="REPORT_SCORE" newDataType="FLOAT"/>
+        <modifyDataType tableName="RESIGN_SESSION_CONTRACT" columnName="SPECIALITY_SCORE" newDataType="FLOAT"/>
+        <modifyDataType tableName="RESIGN_SESSION_CONTRACT" columnName="ATTITUDE_SCORE" newDataType="FLOAT"/>
+
+    </changeSet>
+    <changeSet id="rename report file to report tct path" author="anhcn">
+        <renameColumn tableName="RESIGN_SESSION" oldColumnName="REPORT_FILE" newColumnName="REPORT_TCT_PATH"/>
+    </changeSet>
+
+    <changeSet id="add bieu-mau list encode path" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION">
+            <column name="BM_LIST_ENCODE_PATH" type="nvarchar2(100)"
+                    remarks="Lưu file báo cáo đơn vị (tổng hợp bm09 của các đơn vị)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add more field to employer info" author="anhcn">
+        <addColumn tableName="EMPLOYER_INFO">
+            <column name="REPRESENTATIVE_NATIONALITY" type="VARCHAR(255)" remarks="Quốc gia của người đại diện"/>
+            <column name="REPRESENTATIVE_PERSONAL_ID_NUMBER" type="VARCHAR(255)" remarks="CMT/CCCD người đại diện"/>
+            <column name="REPRESENTATIVE_PERSONAL_ID_ISSUE_DATE" type="DATE" remarks="Ngày cấp CMT/CCCD người đại diện"/>
+            <column name="REPRESENTATIVE_PERSONAL_ID_ISSUE_PLACE" type="VARCHAR(255)" remarks="Nơi cấp CMT/CCCD người đại diện"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add REPRESENTATIVE_DATE_OF_BIRTH field to employer info" author="anhcn">
+        <addColumn tableName="EMPLOYER_INFO">
+            <column name="REPRESENTATIVE_DATE_OF_BIRTH" type="DATE" remarks="Ngày sinh của người đại diện"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add REPRESENTATIVE_PLACE_OF_BIRTH field to employer info" author="anhcn">
+        <addColumn tableName="EMPLOYER_INFO">
+            <column name="REPRESENTATIVE_PLACE_OF_BIRTH" type="NVARCHAR2(100)" remarks="Nơi sinh của người đại diện"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add unitId to cv" author="anhcn">
+        <addColumn tableName="CV">
+            <column name="UNIT_ID" type="NUMBER(19)" remarks="Đơn vị (của người add cv này vào)"
+                    defaultValueNumeric="9004488">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add unitName to cv" author="anhcn">
+        <addColumn tableName="CV">
+            <column name="UNIT_NAME" type="nvarchar2(100)" remarks="Tên đơn vị (của người add cv này vào) không thay đổi mấy nên để luôn làm 1 trường (Trường thừa)"
+                    defaultValue="KCQ TCT Công trình">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add REPRESENTATIVE_ADDRESS field to employer info" author="anhcn">
+        <addColumn tableName="EMPLOYER_INFO">
+            <column name="REPRESENTATIVE_ADDRESS" type="NVARCHAR2(100)" remarks="Địa chỉ của người đại diện"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add PERCENT_SALARY field to employer info" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="PERCENT_SALARY" type="FLOAT" remarks="Phần trăm hưởng lương thử việc"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="anhcn" id="create otp sequence">
+        <createSequence cacheSize="50" maxValue="9999999999999999999999999999" sequenceName="OTP_SEQ" startValue="1"/>
+    </changeSet>
+
+    <changeSet author="anhcn" id="create OTP table">
+        <createTable tableName="OTP" >
+            <column defaultValueComputed="&quot;OTP_SEQ&quot;.&quot;NEXTVAL&quot;" name="OTP_ID" type="NUMBER(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CODE" type="NVARCHAR2(10)"/>
+            <column name="NAME" type="NVARCHAR2(100)"/>
+            <column name="CONTENT" type="NVARCHAR2(511)"/>
+            <column defaultValueNumeric="1" name="IS_ACTIVE" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CREATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_AT" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UPDATED_BY" type="NUMBER(19, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEL_FLAG" type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="add duration to otp" author="anhcn">
+        <addColumn tableName="OTP">
+            <column name="duration" type="NUMBER(19)" remarks="Thời gian sống của OTP tính theo giây"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add contract code to contract" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="CONTRACT_CODE" type="VARCHAR(100)" remarks="Mã hợp đồng"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add otp type to otp" author="anhcn">
+        <addColumn tableName="OTP">
+            <column name="otp_type" type="NUMBER(2)" remarks="Loại OTP (Dùng để thay đổi nội dung tin nhắn)"
+                    defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="CHANGE REVIEW IN INTERVIEW_CV to accept more text" author="anhcn">
+        <addColumn tableName="INTERVIEW_SESSION_CV">
+            <column name="REVIEW_NEW" type="nvarchar2(2000)" remarks="Tóm tắt kinh nghiệm làm việc"/>
+        </addColumn>
+        <sql> update INTERVIEW_SESSION_CV set REVIEW_NEW = REVIEW</sql>
+        <dropColumn tableName="INTERVIEW_SESSION_CV" columnName="REVIEW"/>
+        <renameColumn tableName="INTERVIEW_SESSION_CV" oldColumnName="REVIEW_NEW"
+                      newColumnName="REVIEW"/>
+    </changeSet>
+    <changeSet id="drop employee profile" author="anhcn">
+        <dropTable tableName="EMPLOYEE_PROFILE"/>
+    </changeSet>
+
+    <changeSet id="drop EMPLOYEE_VHR_TEMP_BAK" author="anhcn">
+        <dropTable tableName="EMPLOYEE_VHR_TEMP_BAK"/>
+    </changeSet>
+    <changeSet id="drop recruit profile" author="anhcn">
+        <dropTable tableName="RECRUIT_PROFILE"/>
+    </changeSet>
+    <changeSet id="add trainingPlace" author="anhcn">
+        <addColumn tableName="CONTRACT">
+            <column name="TRAINING_PLACE" remarks="Nơi đào tạo" type="nvarchar2(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="EXTEND INTERVIEW_COMMENT" author="anhcn">
+        <addColumn tableName="RESIGN_SESSION_CONTRACT">
+            <column name="INTERVIEW_COMMENT_NEW" type="nvarchar2(2000)" remarks="Đánh giá lúc phỏng vấn, người dùng tự nhập"/>
+        </addColumn>
+        <sql> update RESIGN_SESSION_CONTRACT set INTERVIEW_COMMENT_NEW = INTERVIEW_COMMENT</sql>
+        <dropColumn tableName="RESIGN_SESSION_CONTRACT" columnName="INTERVIEW_COMMENT"/>
+        <renameColumn tableName="RESIGN_SESSION_CONTRACT" oldColumnName="INTERVIEW_COMMENT_NEW"
+                      newColumnName="INTERVIEW_COMMENT"/>
+    </changeSet>
+
+
+</databaseChangeLog>

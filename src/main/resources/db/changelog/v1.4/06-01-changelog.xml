@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="1646577781429-497"
+               author="chaunm16">
+        <addColumn tableName="recruitment_progress_employee">
+            <column name="IS_HR"
+                    type="BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1647176784661-491"
+               author="chaunm16">
+        <createSequence incrementBy="1"
+                        sequenceName="RECRUITMENT_PROGRESS_DETAIL_FILE_SEQ"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="1647176784661-496"
+               author="chaunm16">
+        <createTable tableName="RECRUITMENT_PROGRESS_DETAIL_FILE">
+            <column name="DETAIL_FILE_ID"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="PK_RECRUITMENT_PROGRESS_DETAIL_FILE"/>
+            </column>
+            <column name="DEL_FLAG"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_TITLE"
+                    type="VARCHAR(255)"/>
+            <column name="FILE_URL"
+                    type="VARCHAR(255)"/>
+            <column name="PROGRESS_DETAIL_ID"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

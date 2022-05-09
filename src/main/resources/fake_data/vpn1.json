@@ -1,0 +1,46 @@
+{
+  "id": null,
+  "userInfoId": null,
+  "ticket": "ST-418-mStL1UuOXF-SgDuUiCTGxwbQKEkDEV-ADCALL-AUTOSMS",
+  "email": "hoanm1@viettel.com.vn",
+  "employeeCode": 142080,
+  "fullName": "Nguyễn Minh Họa",
+  "loginName": "270504",
+  "phoneNumber": "0352038890",
+  "password": null,
+  "sysUserId": 14696,
+  "isActive": true,
+  "userName": "142080",
+  "staffCode": "142080",
+  "departmentId": -1,
+  "positionId": -1,
+  "userID": 142080,
+  "grantedAuthority": [
+    { "authority": "TEST", "url": "/page/home"}
+  ,{ "authority": "TEST", "url": "/page/system"}
+  ,{ "authority": "TEST", "url": "/page/system/log"}
+  ,{ "authority": "TEST", "url": "/page/system/config"}
+  ,{ "authority": "TEST", "url": "/page/system/user"}
+  ,{ "authority": "TEST", "url": "/page/category-manager"}
+  ,{ "authority": "TEST", "url": "/page/category-manager/document"}
+  ,{ "authority": "TEST", "url": "/page/category-manager/template"}
+  ,{ "authority": "TEST", "url": "/page/category-manager/email"}
+  ,{ "authority": "TEST", "url": "/page/category-manager/config"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager/candidate"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager/interview"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager/interview/section"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager/interview/candidate"}
+  ,{ "authority": "TEST", "url": "/page/recruitment-manager/interview/selection"}
+  ,{ "authority": "TEST", "url": "/page/document-manager"}
+  ,{ "authority": "TEST", "url": "/page/document-manager/candidate"}
+  ,{ "authority": "TEST", "url": "/page/document-manager/job"}
+  ,{ "authority": "TEST", "url": "/page/document-manager/vhr"}
+  ,{ "authority": "TEST", "url": "/page/contract-manager"}
+  ,{ "authority": "TEST", "url": "/page/contract-manager/now"}
+  ,{ "authority": "TEST", "url": "/page/contract-manager/expired"}
+  ,{ "authority": "TEST", "url": "/page/contract-manager/proposed"}
+  ,{ "authority": "TEST", "url": "/page/sign-contract"}
+  ]
+}
+

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="1645168611549-100"
+               author="chaunm16">
+        <createSequence incrementBy="1"
+                        sequenceName="RECRUITMENT_PROGRESS_DETAIL_SEQ"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="1645168611549-101"
+               author="chaunm16">
+        <createSequence incrementBy="1"
+                        sequenceName="RECRUITMENT_PROGRESS_SEQ"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="1645168611549-102"
+               author="chaunm16">
+        <createTable tableName="RECRUITMENT_PROGRESS_DETAIL">
+            <column name="PROGRESS_DETAIL_ID"
+                    type="INT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="PK_RECRUITMENT_PROGRESS_DETAIL"/>
+            </column>
+            <column name="DEL_FLAG"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECRUITED"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECRUITMENT_DATE"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECRUITMENT_PROGRESS_ID"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1645168611549-103"
+               author="chaunm16">
+        <createTable tableName="RECRUITMENT_PROGRESS">
+            <column name="PROGRESS_ID"
+                    type="INT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="PK_RECRUITMENT_PROGRESS"/>
+            </column>
+            <column name="DEL_FLAG"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_ID"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_CODE"
+                    type="VARCHAR(255)"/>
+            <column name="POSITION_NAME"
+                    type="VARCHAR(255)"/>
+            <column name="ORGANIZATION_ID"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORGANIZATION_CODE"
+                    type="VARCHAR(255)"/>
+            <column name="ORGANIZATION_NAME"
+                    type="VARCHAR(255)"/>
+            <column name="HR_PLAN"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENT_EMP"
+                    type="INT"/>
+            <column name="RECRUITED"
+                    type="INT"/>
+            <column name="DEADLINE"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION"
+                    type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1645674030967-106"
+               author="chaunm16 (generated)">
+        <createSequence incrementBy="1"
+                        sequenceName="RECRUITMENT_PROGRESS_EMPLOYEE_SEQ"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="1645674030967-107"
+               author="chaunm16 (generated)">
+        <createTable tableName="recruitment_progress_employee">
+            <column name="PROGRESS_EMPLOYEE_ID"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="PK_RECRUITMENT_PROGRESS_EMPLOYEE"/>
+            </column>
+            <column name="DEL_FLAG"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ACTIVE"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMPLOYEE_ID"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMPLOYEE_CODE"
+                    type="VARCHAR(255)"/>
+            <column name="EMPLOYEE_NAME"
+                    type="VARCHAR(255)"/>
+            <column name="EMPLOYEE_EMAIL"
+                    type="VARCHAR(255)"/>
+            <column name="RECRUITMENT_PROGRESS_ID"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

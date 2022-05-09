@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+<!--    <include file="db/changelog/v1/create database.yaml"/>-->
+<!--    <include file="db/changelog/v1.1/alter database after first review.xml"/>-->
+<!--    <changeSet id="1623639921403-1" author="anhcn">-->
+<!--        <sqlFile path="db/changelog/v1.1/tables_oracle.sql"/>-->
+<!--    </changeSet>-->
+    <include file="db/changelog/v1.2/re-create database.xml"/>
+    <include file="db/changelog/v1.2/2021-08-16.xml"/>
+    <include file="db/changelog/v1.3/po3 changelog.xml"/>
+    <include file="db/changelog/v1.4/20220218-changelog.xml"/>
+    <include file="db/changelog/v1.4/06-01-changelog.xml"/>
+<!--    <include file="db/changelog/v1.5/16-01-changelog.xml"/>-->
+    <include file="db/changelog/v1.5/21-01-changelog.xml"/>
+</databaseChangeLog>

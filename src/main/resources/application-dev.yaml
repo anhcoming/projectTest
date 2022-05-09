@@ -1,0 +1,92 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+        database-platform: org.hibernate.dialect.Oracle10gDialect
+springdoc:
+    api-docs:
+        path: /swagdocs
+    swagger-ui:
+        path: /swagui
+server:
+    port: 8864
+    servlet:
+        context-path: "/hstd-service"
+logging:
+    level:
+        com:
+            zaxxer:
+                hikari: trace
+            viettel:
+                hstd:
+                    core:
+                        interceptor: trace
+
+        org:
+            hibernate:
+                stat: debug
+                type: debug
+
+
+app:
+    liquibase:
+        should-run: true
+    send-email:
+        email: morgan.palmer.amz02@gmail.com
+        password: '@Soict123'
+        protocol: smtp
+        host: smtp.gmail.com
+        port: 587
+        is-active: true
+
+    sso:
+        login-url: http://171.244.9.242:8864/sso/login
+        logout-url: http://171.244.9.242:8864/sso/logout
+        validate-url: http://171.244.9.242:8864/sso/p3/serviceValidate
+        vps-service-url: http://210.211.99.98:8080/vps/AuthorizedDataService?wsdl
+        login-method: VSA
+        domain-code: HSTD
+        service: http://171.244.9.242:8864/hstd-web/
+        error-url: http://171.244.9.242:8864/ktt/error.do
+        allow-url: /error.do
+        use-modify-header: false
+    vps:
+        domain-code: HSTD
+
+    datasource:
+        hstd:
+            driver-class-name: oracle.jdbc.OracleDriver
+            username: HSTD
+            password: HSTD$VietTEL2020
+            jdbc-url: jdbc:oracle:thin:@125.212.226.94:61521:VCC
+        vps:
+            driver-class-name: oracle.jdbc.OracleDriver
+            jdbc-url: jdbc:oracle:thin:@125.212.226.94:61521:VCC
+            username: VCC_VPS
+            password: QLKTT$VietTEL2020
+
+    store:
+        path-store-media: ../uploads
+        extension-diagram: .xml
+        path-store-diagram: ../uploads/diagram
+        path-store-export: ../export
+
+    voffice:
+        ca_wsUrl: http://171.244.9.242:8864/voffice-api/Vo2AutoSignSystemImpl?wsdl
+        ca_appCode: KTTS_WMS_2.0
+        ca_appPass: 123456a@
+        ca_encrypt_key: keyencryp
+        ca_sender: KTTS_WMS_2.0
+        userVoffice: vof_test_tp2
+        passVoffice: Asdfgh@123
+        docTypeId: 572
+        areaId: 610
+
+sms:
+    url: https://hsdt.congtrinhviettel.com.vn/hsdt-bulk-sms/send
+    head-hr-phone: 84961185888
+
+email:
+    tcld-email-id: 201
+    recruitment-plan-alert-id: 751

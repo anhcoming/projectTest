@@ -1,0 +1,67 @@
+spring:
+    application:
+        name: hstd
+    jpa:
+        hibernate:
+            use-new-id-generator-mappings: false
+        properties:
+            hibernate:
+                jdbc:
+                    batch_size: 50
+                order_inserts: true
+                order_updates: true
+                batch_versioned_data: true
+
+    jackson:
+        serialization.write_dates_as_timestamps: false
+    liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.xml
+    task:
+        scheduling:
+            pool:
+                size: 10
+app:
+    liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.xml
+    allow-url:
+        - "/auth/**"
+        - "/apidocs*/**"
+        - "/configuration/**"
+        - "/swagger*/**"
+        - "/swagui*/**"
+        - "/swagdocs*/**"
+        - "/ReveiceFromVOfficeImpl/**"
+        - "/voffice/**"
+        - "/ethnic/check"
+    data-source:
+        hstd:
+            idle-timeout: 30000
+            minimumIdle: 5
+            maximumPoolSize: 20
+            poolName: HSDTConnectionPool
+            connectionTimeout: 30000
+            leak-detection-threshold: 15000
+            maxLifetime: 180000
+            validation-timeout: 15000
+        vps:
+            idle-timeout: 30000
+            minimumIdle: 5
+            maximumPoolSize: 20
+            poolName: VPSConnectionPool
+            connectionTimeout: 30000
+            leak-detection-threshold: 15000
+            maxLifetime: 180000
+            validation-timeout: 15000
+
+server:
+    max-http-header-size: 65532
+
+logging:
+    level:
+        com: debug
+
+sms:
+    user: "smsbrand_vcc"
+    pass: VCC@2021
+    CPCode: VCC
+    ServiceID: CONGTRINHVT

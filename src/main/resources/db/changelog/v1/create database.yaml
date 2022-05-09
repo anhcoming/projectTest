@@ -1,0 +1,1411 @@
+databaseChangeLog:
+  - changeSet:
+      id: base-1
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: CANDIDATE_INTERVIEW_PHASE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-2
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: CANDIDATE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-3
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: CV_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-4
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: EMAIL_CONFIG_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-5
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: EMPLOYEE_INTERVIEW_PHASE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-6
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: EMPLOYEE_INTERVIEW_SESSION_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-7
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: INTERVIEW_PHASE_CV_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-8
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: INTERVIEW_PHASE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-9
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: INTERVIEW_SESSION_CV_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-10
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: INTERVIEW_SESSION_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-11
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: RECRUITEE_ACCOUNT_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-12
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: RECRUIT_PROFILE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-13
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"CANDIDATE_SEQ"."NEXTVAL"'
+                  name: CANDIDATE_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: FULL_NAME
+                  type: NVARCHAR2(200)
+              - column:
+                  name: GENDER
+                  type: NUMBER(1, 0)
+              - column:
+                  name: USER_BIRTHDAY
+                  type: DATE(0)
+              - column:
+                  name: EMAIL
+                  type: NVARCHAR2(50)
+              - column:
+                  name: PHONE_NUMBER
+                  type: NVARCHAR2(50)
+              - column:
+                  name: ADDRESS
+                  type: NVARCHAR2(1000)
+              - column:
+                  name: TECHNICAL_EXPERTISE_PROFESSION
+                  type: NVARCHAR2(200)
+              - column:
+                  name: SCHOOL
+                  type: NVARCHAR2(255)
+              - column:
+                  name: MAJOR
+                  type: NVARCHAR2(255)
+              - column:
+                  name: YEARS_EXPERIENCE
+                  type: NUMBER(10, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: base-14
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"CV_SEQ"."NEXTVAL"'
+                  name: CV_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: FULL_NAME
+                  type: NVARCHAR2(200)
+              - column:
+                  name: GENDER
+                  type: NUMBER(1, 0)
+              - column:
+                  name: USER_BIRTHDAY
+                  type: DATE(0)
+              - column:
+                  name: EMAIL
+                  type: NVARCHAR2(50)
+              - column:
+                  name: PHONE_NUMBER
+                  type: NVARCHAR2(50)
+              - column:
+                  name: ADDRESS
+                  type: NVARCHAR2(1000)
+              - column:
+                  name: TECHNICAL_EXPERTISE_PROFESSION
+                  type: NVARCHAR2(200)
+              - column:
+                  name: SCHOOL
+                  type: NVARCHAR2(255)
+              - column:
+                  name: MAJOR
+                  type: NVARCHAR2(255)
+              - column:
+                  name: APPLY_DATE
+                  type: date
+              - column:
+                  name: POSITION_ID
+                  type: NUMBER(10)
+              - column:
+                  name: POSITION_CODE
+                  type: NVARCHAR2(50)
+              - column:
+                  name: APPLY_POSITION
+                  type: NVARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: INTERVIEW_STATE
+                  remarks: '0: Chưa phỏng vấn, 1: Đã phỏng vấn'
+                  type: NUMBER(1, 0)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: YEARS_EXPERIENCE
+                  type: NUMBER(10, 0)
+              - column:
+                  name: FILE_NAME
+                  type: NVARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: CANDIDATE_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: CV
+
+  - changeSet:
+      id: base-15
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"EMAIL_CONFIG_SEQ"."NEXTVAL"'
+                  name: EMAIL_CONFIG_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: MAIL_SERVER
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: PORT
+                  type: NUMBER(10, 0)
+              - column:
+                  name: AUTHENTICATE
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: EMAIL
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: PASSWORD
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: EMAIL_CONFIG
+
+  - changeSet:
+      id: base-16
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"EMPLOYEE_INTERVIEW_SESSION_SEQ"."NEXTVAL"'
+                  name: EMPLOYEE_INTERVIEW_SESSION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: EMPLOYEE_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: INTERVIEW_SESSION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: EMPLOYEE_INTERVIEW_SESSION
+
+  - changeSet:
+      id: base-17
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"INTERVIEW_SESSION_SEQ"."NEXTVAL"'
+                  name: INTERVIEW_SESSION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: START_DATE
+                  type: TIMESTAMP(0)
+              - column:
+                  name: END_DATE
+                  type: TIMESTAMP(0)
+              - column:
+                  name: INTERVIEW_LOCATION
+                  type: NVARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: INTERVIEW_SESSION
+
+  - changeSet:
+      id: base-18
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"INTERVIEW_SESSION_SEQ"."NEXTVAL"'
+                  name: INTERVIEW_SESSION_CV_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: INTERVIEW_SESSION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: CV_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 0.0
+                  name: EXPERTISE_GRADE
+                  type: FLOAT(22)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 0.0
+                  name: CULTURAL_APPROPRIATION_GRADE
+                  type: FLOAT(22)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 0.0
+                  name: STYLE_GRADE
+                  type: FLOAT(22)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: EXPERIENCE_GRADE
+                  type: FLOAT(22)
+              - column:
+                  name: CHARACTERISTIC_MULTIPLE_CHOISE
+                  type: NVARCHAR2(255)
+              - column:
+                  name: ENGLISH
+                  type: NVARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 0.0
+                  name: TECHNOLOGY_FAMILIARITY_GRADE
+                  type: FLOAT(22)
+              - column:
+                  name: REVIEW
+                  type: VARCHAR2(511 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: RESULT
+                  remarks: '0: Chưa có kết quả, 1: Trúng, 2: Trượt'
+                  type: NUMBER(1, 0)
+              - column:
+                  name: RESULT_EMAIL_SEND_DATE
+                  type: date
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: INTERVIEW_SESSION_CV
+
+  - changeSet:
+      id: base-19
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"RECRUITEE_ACCOUNT_SEQ"."NEXTVAL"'
+                  name: RECRUITEE_ACCOUNT_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: LOGIN_NAME
+                  type: NVARCHAR2(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: PASSWORD
+                  type: NVARCHAR2(200)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: CANDIDATE_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: RECRUITEE_ACCOUNT
+
+  - changeSet:
+      id: base-20
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"RECRUIT_PROFILE_SEQ"."NEXTVAL"'
+                  name: RECRUIT_PROFILE_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: VOFFICE_CODE
+                  type: VARCHAR2(19 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: SIGNED_FLAG
+                  remarks: '0: Chưa ký, 1: Đã ký, 2: Không ký'
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: INTERVIEW_PHASE_CV_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  name: ACCEPTANCE_DEADLINE
+                  type: date
+              - column:
+                  name: HR_EVALUATION
+                  remarks: '0: Chưa duyệt, 1: Duyệt, 2: Không duyệt'
+                  type: NUMBER(10, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: RECRUIT_PROFILE
+  - changeSet:
+      id: base-21
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: INTERVIEW_SESSION_POSITION_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-22
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"INTERVIEW_SESSION_POSITION_SEQ"."NEXTVAL"'
+                  name: INTERVIEW_SESSION_POSITION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: POSITION_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: INTERVIEW_SESSION_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: POSITION_CODE
+                  type: NVARCHAR2(50)
+              - column:
+                  name: POSITION_NAME
+                  type: NVARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: INTERVIEW_SESSION_POSITION
+  - changeSet:
+      id: base-23
+      author: anhcn
+      changes:
+        - dropTable:
+            tableName: CANDIDATE
+  - changeSet:
+      id: base-24
+      author: anhcn
+      changes:
+        - renameColumn:
+            tableName: RECRUITEE_ACCOUNT
+            oldColumnName: CANDIDATE_ID
+            newColumnName: CV_ID
+  - changeSet:
+      id: base-25
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: EMAIL_TEMPLATE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-26
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"EMAIL_TEMPLATE_SEQ"."NEXTVAL"'
+                  name: EMAIL_TEMPLATE_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  name: NAME
+                  type: NVARCHAR2(255)
+              - column:
+                  name: CONTENT
+                  type: CLOB
+              - column:
+                  name: TYPE
+                  type: NUMBER(2, 0)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: CREATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: UPDATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: EMAIL_TEMPLATE
+  - changeSet:
+      id: base-27
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: DOCUMENT_TYPE_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-28
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"DOCUMENT_TYPE_SEQ"."NEXTVAL"'
+                  name: DOCUMENT_TYPE_ID
+                  type: NUMBER(10, 0)
+              - column:
+                  name: CODE
+                  type: NVARCHAR2(50)
+              - column:
+                  name: NAME
+                  type: NVARCHAR2(255)
+              - column:
+                  defaultValueNumeric: 0
+                  name: OBLIGATE_FLAG
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 1
+                  name: TYPE
+                  type: NUMBER(1, 0)
+                  remarks: '1: Hợp đồng thử việc, 2: Hợp đồng Lao động, 3: Hợp đồng dịch vụ OFT, 4: Thỏa thuận hợp tác CTV, 5: Hợp đồng giao khoán'
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: CREATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: UPDATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: DOCUMENT_TYPE
+  - changeSet:
+      id: base-29
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: HISTORY_UPLOAD_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-30
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"HISTORY_UPLOAD_SEQ"."NEXTVAL"'
+                  name: ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: URL
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: FILE_SIZE
+                  type: NUMBER(19, 0)
+              - column:
+                  name: TITLE
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: TYPE
+                  type: VARCHAR2(20 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: HISTORY_UPLOAD
+  - changeSet:
+      id: base-31
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: PROVINCE_AREA_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-32
+      author: anhcn
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"PROVINCE_AREA_SEQ"."NEXTVAL"'
+                  name: ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: CODE
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: NAME
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: PARENT_ID
+                  type: NUMBER
+              - column:
+                  name: STATUS
+                  type: NUMBER(1, 0)
+              - column:
+                  name: PATH
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: NAME_LEVEL1
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: NAME_LEVEL2
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: NAME_LEVEL3
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: GROUP_ORDER
+                  type: NUMBER
+              - column:
+                  name: GROUP_LEVEL
+                  type: NUMBER
+              - column:
+                  name: PROVINCE_ID
+                  type: NUMBER
+              - column:
+                  name: PROVINCE_CODE
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: AREA_ID
+                  type: NUMBER
+              - column:
+                  name: AREA_CODE
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: SYS_GROUP_ID
+                  type: NUMBER
+              - column:
+                  name: SYS_GROUP_NAME
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: CREATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: UPDATED_BY
+                  type: NUMBER
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+            tableName: PROVINCE_AREA
+  - changeSet:
+      id: base-33
+      author: anhcn
+      changes:
+        - createView:
+            fullDefinition: true
+            selectQuery: |-
+              CREATE OR REPLACE FORCE VIEW "PROVINCE_AREA_SHORT" ("ID", "CODE", "NAME", "PARENT_ID", "PROVINCE_CODE") AS SELECT ID, CODE, NAME, (case when PARENT_ID = 1 then AREA_ID + 99317 else PARENT_ID end) PARENT_ID, PROVINCE_CODE
+              FROM PROVINCE_AREA
+            viewName: PROVINCE_AREA_SHORT
+  - changeSet:
+      id: base-34
+      author: anhcn
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: EMAIL_CATEGORY_SEQ
+            startValue: 1
+  - changeSet:
+      id: base-35
+      author: khuye (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"EMAIL_CATEGORY_SEQ"."NEXTVAL"'
+                  name: EMAIL_CATEGORY_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: CONTENT
+                  type: CLOB
+              - column:
+                  name: NAME
+                  type: NVARCHAR2(255)
+              - column:
+                  name: EMAIL_SEND
+                  type: VARCHAR2(255 BYTE)
+              - column:
+                  name: EMAIL_TEMPLATE_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: IS_STATUS
+                  remarks: 0. là chưa gửi, 1 là đã gửi
+                  type: NUMBER(1, 0)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: CREATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  name: UPDATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+              - column:
+                  name: EMAIL_CONFIG_ID
+                  type: NUMBER(19, 0)
+            tableName: EMAIL_CATEGORY
+  - changeSet:
+      id: base-36
+      author: anhcn
+      changes:
+        - addColumn:
+            tableName: CV
+            columns:
+              name: FILE_PATH
+              type: NVARCHAR2(255)
+  - changeSet:
+      id: base-37
+      author: anhcn
+      changes:
+        - addNotNullConstraint:
+            columnDataType: NUMBER(1)
+            columnName: GENDER
+            constraintName: GENDER_NOT_NULL
+            defaultNullValue: 0
+            tableName: CV
+            validate: true
+  - changeSet:
+      id: base-38
+      author: anhcn
+      changes:
+        - setColumnRemarks:
+            columnName: GENDER
+            remarks: '0: Nữ, 1: Nam'
+            tableName: CV
+
+  - changeSet:
+      id: luanlt-1
+      author: luanlt
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: SYS_CONFIG_SEQ
+            startValue: 1
+  - changeSet:
+      id: luanlt-2
+      author: luanlt
+      changes:
+        - createSequence:
+            cacheSize: 50
+            maxValue: 9999999999999999999999999999
+            sequenceName: SYS_LOG_SEQ
+            startValue: 1
+
+  - changeSet:
+      id: luanlt-3
+      author: luanlt
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"SYS_CONFIG_SEQ"."NEXTVAL"'
+                  name: SYS_CONFIG_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: CONFIG_KEY
+                  type: NVARCHAR2(50)
+              - column:
+                  name: CONFIG_VALUE
+                  type: NVARCHAR2(255)
+              - column:
+                  name: CREATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  name: UPDATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+              - column:
+                  name: CONFIG_COMMENT
+                  type: NVARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+            tableName: SYS_CONFIG
+  - changeSet:
+      id: luanlt-4
+      author: luanlt
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  defaultValueComputed: '"SYS_LOG_SEQ"."NEXTVAL"'
+                  name: SYS_LOG_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: WORKSTATION
+                  type: NVARCHAR2(50)
+              - column:
+                  name: SYS_USER_ID
+                  type: NUMBER(19, 0)
+              - column:
+                  name: CONTENT
+                  type: NVARCHAR2(255)
+              - column:
+                  name: TABLE_NAME
+                  type: NVARCHAR2(255)
+              - column:
+                  name: CREATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  name: UPDATED_BY
+                  type: NUMBER(10, 0)
+              - column:
+                  defaultValueNumeric: !!float '1'
+                  name: IS_ACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  defaultValueNumeric: !!float '0'
+                  name: DEL_FLAG
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: UPDATED_AT
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: CREATED_AT
+                  type: TIMESTAMP(6)
+            tableName: SYS_LOG
+
+  - changeSet:
+      id: luanlt-5
+      author: luanlt
+      changes:
+        - addColumn:
+            tableName: SYS_LOG
+            columns:
+              name: LOGIN_NAME
+              type: NVARCHAR2(255)
+        - addColumn:
+            tableName: SYS_LOG
+            columns:
+              name: FULL_NAME
+              type: NVARCHAR2(255)
+  - changeSet:
+      id: luanlt-7
+      author: luanlt
+      changes:
+        - addColumn:
+            tableName: SYS_LOG
+            columns:
+              name: CREATE_DATE
+              type: TIMESTAMP(6)
+  - changeSet:
+      id: luanlt-8
+      author: luanlt
+      changes:
+        - dropColumn:
+            tableName: SYS_LOG
+            columns:
+              name: CREATE_DATE
+  - changeSet:
+      id: luanlt-9
+      author: luanlt
+      changes:
+        - addColumn:
+            tableName: EMAIL_TEMPLATE
+            columns:
+              name: FILE_PATH
+              type: NVARCHAR2(255)
+  - changeSet:
+      id: luanlt-10
+      author: luanlt
+      changes:
+        - addColumn:
+            tableName: INTERVIEW_SESSION_CV
+            columns:
+              name: SALARY_EXPECTATIONS
+              type: FLOAT
+        - addColumn:
+            tableName: INTERVIEW_SESSION_CV
+            columns:
+              name: CURRENT_SALARY
+              type: FLOAT
+        - addColumn:
+            tableName: INTERVIEW_SESSION_CV
+            columns:
+              name: EXPECTED_DATE
+              type: TIMESTAMP(6)
+        - addColumn:
+            tableName: INTERVIEW_SESSION_CV
+            columns:
+              name: STARTING_DATE
+              type: TIMESTAMP(6)
+        - addColumn:
+            tableName: INTERVIEW_SESSION_CV
+            columns:
+              name: REASON
+              type: NVARCHAR(255)

@@ -1,0 +1,90 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+springdoc:
+  api-docs:
+    path: /swagdocs
+  swagger-ui:
+    path: /swagui
+server:
+  port: 8864
+  servlet:
+    context-path: "/hstd-service"
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: debug
+      viettel:
+        hstd:
+          core:
+            interceptor: debug
+    org:
+      hibernate:
+        stat: debug
+        type: debug
+
+app:
+  liquibase:
+    should-run: true
+  send-email:
+    email: morgan.palmer.amz02@gmail.com
+    password: '@Soict123'
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    is-active: true
+
+  sso:
+    login-url: https://10.255.58.201:8002/sso/login
+    logout-url: https://10.255.58.201:8002/sso/logout
+    validate-url: https://10.255.58.201:8002/sso/p3/serviceValidate
+    vps-service-url: http://10.255.50.33:8202/vps/AuthorizedDataService?wsdl
+    login-method: VSA
+    domain-code: CTCT
+    service: http://10.248.242.130:8864/hsdt-web/
+    error-url: http://10.248.242.130:8864/hsdt-web/error.do
+    allow-url: /error.do
+    use-modify-header: false
+  vps:
+    domain-code: HSDT
+
+  datasource:
+    hstd:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url: jdbc:oracle:thin:@10.248.242.63:1521/dbaiolab
+      username: HSDT
+      password: HSDT#2021
+    vps:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url: jdbc:oracle:thin:@10.248.242.63:1521/dbaiolab
+      username: CTCT_VPS_OWNER
+      password: CTCT_VPS_OWNER#2021
+
+  store:
+    path-store-media: ../uploads
+    extension-diagram: .xml
+    path-store-diagram: ../uploads/diagram
+    path-store-export: ../export
+
+  voffice:
+    #        ca_wsUrl: http://10.60.108.86:8596/WS_AutoSign/Vo2AutoSignSystemImpl?wsdl
+    ca_wsUrl: http://192.168.176.68:8868/WS_AutoSign/Vo2AutoSignSystemImpl?wsdl
+    ca_appCode: HSDT
+    ca_appPass: 123456a@
+    ca_encrypt_key: keyencryp
+    ca_sender: KTTS_WMS_2.0
+    userVoffice: 218-136-53-53-86-44-89-27
+    passVoffice: 76-118-186-121-30-181-97-240-213-93-16-145-103-162-27-41-66-72-242-80-120-187-233-91-62-244-62-213-244-188-4-244
+    docTypeId: 520
+    areaId: 610
+
+sms:
+  url: https://10.60.106.216:8998/bulkapi
+
+email:
+  tcld-email-id: 301
+  recruitment-plan-alert-id: 901

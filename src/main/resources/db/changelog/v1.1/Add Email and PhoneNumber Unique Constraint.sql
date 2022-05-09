@@ -1,0 +1,7 @@
+create unique index UNIQUE_EMAIL_CV
+    on CV (CASE "DEL_FLAG" WHEN 0 THEN EMAIL END)
+/
+
+create unique index UNIQUE_PHONE_NUMBER_CV
+    on CV (CASE "DEL_FLAG" WHEN 0 THEN PHONE_NUMBER END)
+/

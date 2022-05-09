@@ -1,0 +1,76 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: false
+        database-platform: org.hibernate.dialect.Oracle10gDialect
+springdoc:
+    api-docs:
+        path: /swagdocs
+    swagger-ui:
+        path: /swagui
+server:
+    port: 8864
+    servlet:
+        context-path: "/hstd"
+logging:
+    level:
+        org:
+            hibernate:
+                stat: debug
+                type: error
+
+app:
+    liquibase:
+        should-run: true
+    send-email:
+        email: morgan.palmer.amz02@gmail.com
+        password: '@Soict123'
+        protocol: smtp
+        host: smtp.gmail.com
+        port: 587
+        is-active: true
+
+    sso:
+        login-url: https://10.60.156.97:8225/sso/login
+        logout-url: https://10.60.156.97:8225/sso/logout
+        validate-url: https://10.60.156.97:8225/sso/p3/serviceValidate
+        vps-service-url: http://10.61.19.230:8202/vps/AuthorizedDataService?wsdl
+        login-method: VSA
+        domain-code: HSDT
+        service: http://10.61.19.230:8683/hsdt-web/
+        error-url: http://10.61.19.230:8683/hsdt-web/error.do
+        allow-url: /error.do
+        use-modify-header: false
+    vps:
+        domain-code: HSTD
+
+    datasource:
+        hstd:
+            driver-class-name: oracle.jdbc.OracleDriver
+            jdbc-url: jdbc:oracle:thin:@10.61.19.226:1521/qltt
+            username: HSDT
+            password: oracle
+        vps:
+            driver-class-name: oracle.jdbc.OracleDriver
+            url: jdbc:oracle:thin:@//10.61.19.226:1521/aiopdb
+            username: CTCT_VPS_OWNER
+            password: CTCT_VPS_OWNER#1234
+
+    store:
+        path-store-media: ../uploads
+        extension-diagram: .xml
+        path-store-diagram: ../uploads/diagram
+        path-store-export: ../export
+
+    voffice:
+        ca_wsUrl: http://10.60.108.86:8596/WS_AutoSign/Vo2AutoSignSystemImpl?wsdl
+        ca_appCode: KTTS_WMS_2.0
+        ca_appPass: 123456a@
+        ca_encrypt_key: keyencryp
+        ca_sender: KTTS_WMS_2.0
+        userVoffice: vof_test_tp2
+        passVoffice: Asdfgh@123
+        docTypeId: 572
+        areaId: 610
+
